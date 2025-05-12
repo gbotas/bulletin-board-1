@@ -12,7 +12,7 @@
       Add a new post
     </h2>
 
-    <form action="/modify_board/<%= @the_board.id %>"  method="post" >
+    <form action="/insert_post"  method="post" >
       <div>
         <label for="title_box">
           Title
@@ -37,6 +37,9 @@
         <input type="date" id="expires_on_box" name="query_expires_on">
       </div>
 
+
+        <input type="hidden" id="board_id_box" name="query_board_id" value= "<%= @the_board.id %>">
+
       <button>
         Add post
       </button>
@@ -45,3 +48,25 @@
 </div>
 
 <hr>
+
+<h2> Active posts </h2>
+
+<%  matching_posts = Post.where({ :board_id => @the_board.id}).order({ :expires_on => :asc}) %>
+
+<table border="1">
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th>Posted on</th>
+    <th>Expires on</th>
+  </tr>
+
+<% matching_posts.each do |a_post| %>
+  <tr>
+    <td><%= a_post.title %></td>
+    <td><%= a_post.body %></td>
+    <td><%= a_post.created_at.strftime("%b %e, %Y")%> </td>
+    <td><%= a_post.expires_on.strftime("%b %e, %Y")%> </td>
+  </tr>
+
+<% end %>
