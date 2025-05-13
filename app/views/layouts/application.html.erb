@@ -16,10 +16,17 @@
 
       <hr>
 
-      <div><%= notice %></div>
+      <% if notice.present? %>
+    <div>
+      <%= notice %>
+    </div>
+  <% end %>
 
-      
-      <div><%= alert %></div>
+  <% if alert.present? %>
+    <div>
+      <%= alert %>
+    </div>
+  <% end %>
 
     <%= yield %>
   </body>
